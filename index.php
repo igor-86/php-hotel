@@ -55,40 +55,42 @@ $hotels = [
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Php Hotel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
 </head>
 
 <body>
-    <div class="hotel-list">
-        <h2>Con semplice ciclo For</h2>
-        <div class="card">
-            <?php
-            for ($i = 0; $i < count($hotels); $i++) {
-                $list_hotel = $hotels[$i];
-            ?>
-                <div class="title">
-                    <h4> <?php echo $list_hotel["name"] ?> </h4>
-                    <h5> <?php echo $list_hotel["description"] ?></h5>
-                    <h5> <?php echo $list_hotel["parking"] ?></h5>
-                    <h5> <?php echo $list_hotel["vote"] ?></h5>
-                    <h5> <?php echo $list_hotel["distance_to_center"] ?></h5>
-                </div>
+    <h1>Tabella con ForEach</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <?php foreach ($hotels[0] as $index => $info) { ?>
+                    <th scope="col"><?php echo $index; ?></th>
+                <?php } ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($hotels as $hotel) { ?>
+                <tr>
+                    <?php foreach ($hotel as $index => $inner) { ?>
+                        <?php if ($index === "name") { ?>
+                            <th scope="row">Titolo: <?php echo $inner; ?></th>
+                        <?php } else { ?>
+                            <?php if ($index === "parking") { ?>
+                                <?php if ($inner === true) { ?>
+                                    <td>Disponibile</td>
+                                <?php } else { ?>
+                                    <td>Non disponibile</td>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <td> Restanti voci: <?php echo $inner; ?></td>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
+                </tr>
             <?php } ?>
-        </div>
-    </div>
-    <div class="hotel-list">
-        <h2>Ciclo ForEach</h2>
-        <div class="card">
-            <?php
-            foreach ($hotels as $index => $hotel) { ?>
-                <h2>Hotels <?php echo $index; ?></h2>
-                <?php foreach ($hotel as $key => $inner) { ?>
-                    <h4> <?php echo $key; ?></h4>
-                    <span> <?php echo $inner; ?></span>
-
-                <?php }; ?>
-            <?php }; ?>
-        </div>
-    </div>
+        </tbody>
+    </table>
 </body>
 
 </html>
